@@ -4,6 +4,7 @@ import Home from "../pages/home/Home";
 import SignUp from "../pages/signup/SignUp";
 import Login from "../pages/login/Login";
 import Quiz from "../pages/quiz/Quiz";
+import Result from "../pages/result/Result";
 
 
 const router = createBrowserRouter([
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
             {
                 path: "/quiz",
                 element: <Quiz />,
+            },
+            {
+                path: "/quiz/result",
+                element: <Result />,
             },
         ]
     },
