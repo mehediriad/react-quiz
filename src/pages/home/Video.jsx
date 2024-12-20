@@ -3,7 +3,7 @@
 const Video = () => {
     return (
         <div>
-            <a href="quiz.html"
+            <a href="/quiz"
             ><div className="video">
                     <img src="./images/3.jpg" alt="" />
                     <p>#23 React Hooks Bangla - React useReducer hook Bangla</p>
