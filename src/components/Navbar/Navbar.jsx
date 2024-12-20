@@ -19,6 +19,7 @@ const Navbar = () => {
                 </span>
 
                 <Link to="/signup">Signup</Link>
+                <Link to="/signup">Login</Link>
                 {/* <!-- <span className="material-icons-outlined" title="Logout"> logout </span> --> */}
             </div>
         </nav>
