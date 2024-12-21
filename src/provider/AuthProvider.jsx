@@ -7,17 +7,20 @@ export const AuthContext = createContext()
 const AuthProvider = ({ children }) => {
     
     const [user, setUser] = useState(null)
-    const [loading, setLoading] = useState(true)
+    const [authLoading, setAuthLoading] = useState(true)
+    const [authError,setAuthError] = useState(null)
+
+    
 
     //signup user
     const signup = (email, password) => {
-        setLoading(true)
+        setAuthLoading(true)
         return createUserWithEmailAndPassword(auth, email, password)
     }
 
     //update user
     const updateUser = (name) =>{
-        setLoading(true)
+        setAuthLoading(true)
         return updateProfile(auth.currentUser, {
             displayName: name
         })
@@ -25,27 +28,27 @@ const AuthProvider = ({ children }) => {
 
     //signin user
     const signin = (email,password) =>{
-        setLoading(true)
+        setAuthLoading(true)
         return signInWithEmailAndPassword(auth, email, password)
     }
 
     //logout user
     const logout = () =>{
-        setLoading(true)
+        setAuthLoading(true)
         return signOut(auth)
     }
 
 
     //observe auth state change
     useEffect(()=>{
-        setLoading(true)
+        setAuthLoading(true)
         const unsebscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
               setUser(user)
-              setLoading(false)
+              setAuthLoading(false)
             } else {
                 setUser(null)
-                setLoading(false)
+                setAuthLoading(false)
             }
           });
 
@@ -53,11 +56,14 @@ const AuthProvider = ({ children }) => {
     },[])
     const authInfo = {
         user,
-        loading,
+        authLoading,
+        setAuthLoading,
         signup,
         signin,
         updateUser,
-        logout
+        logout,
+        authError,
+        setAuthError
     }
 
    

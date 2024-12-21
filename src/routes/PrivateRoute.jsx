@@ -3,13 +3,13 @@ import useAuth from "../hooks/useAuth";
 
 
 const PrivateRoute = ({children}) => {
-    const {user,loading} = useAuth()
+    const {user,authLoading} = useAuth()
     const location = useLocation()
 
     // console.log(location);
     
 
-    if(loading){
+    if(authLoading){
         return (
             <div className="flex justify-center items-center min-h-screen">
                 <p>Loading...</p>

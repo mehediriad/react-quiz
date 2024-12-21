@@ -8,7 +8,7 @@ const SignUp = () => {
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
 
-    const { signup, updateUser, logout } = useAuth()
+    const { signup, updateUser, logout, setAuthLoading } = useAuth()
 
     const handleSignup = (e) => {
         e.preventDefault();
@@ -61,6 +61,7 @@ const SignUp = () => {
                                     setLoading(false)
                                     e.target.reset()
                                 }).catch(() => {
+                                    setError("Something went wrong!")
                                     setLoading(false)
 
                                 });
@@ -70,14 +71,21 @@ const SignUp = () => {
                         }).catch(() => {
                             setError("Something went wrong!")
                             setLoading(false)
+                            setAuthLoading(false)
                         });
                 }
 
 
             })
             .catch(() => {
-                setError("Something went wrong!")
                 setLoading(false)
+                setError("Something went wrong!")
+                setAuthLoading(false)
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Something went wrong!",
+                  });
             });
 
 
@@ -92,28 +100,28 @@ const SignUp = () => {
                 </div>
                 <form onSubmit={handleSignup} className="signup form">
                     <div className="textInput">
-                        <input name="name" type="text" placeholder="Enter name" />
+                        <input required name="name" type="text" placeholder="Enter name" />
                         <span className="material-icons-outlined"> person </span>
                     </div>
 
                     <div className="textInput">
-                        <input name="email" type="text" placeholder="Enter email" />
+                        <input required name="email" type="text" placeholder="Enter email" />
                         <span className="material-icons-outlined"> alternate_email </span>
                     </div>
 
                     <div className="textInput">
-                        <input name="password" type="password" placeholder="Enter password" />
+                        <input required name="password" type="password" placeholder="Enter password" />
                         <span className="material-icons-outlined"> lock </span>
                     </div>
 
                     <div className="textInput">
-                        <input name="confirmPassword" type="password" placeholder="Confirm password" />
+                        <input required name="confirmPassword" type="password" placeholder="Confirm password" />
                         <span className="material-icons-outlined"> lock_clock </span>
                     </div>
 
                     <div>
                         <label>
-                            <input name="agree" type="checkbox" />
+                            <input required name="agree" type="checkbox" />
                             <span> I agree to the Terms & Conditions</span>
                         </label>
                     </div>

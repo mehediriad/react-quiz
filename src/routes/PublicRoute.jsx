@@ -4,11 +4,12 @@ import useAuth from "../hooks/useAuth";
 
 
 const PublicRoute = ({children}) => {
-    const {user,loading} = useAuth()
+    const {user,authLoading,authError} = useAuth()
     const location = useLocation()
 
+   if(authError) <Navigate to={"/signup"}/>
    
-    if(loading){
+    if(authLoading){
         return (
             <div className="flex justify-center items-center min-h-screen">
                 <p>Loading...</p>
