@@ -2,34 +2,25 @@ import { createContext, useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { app } from "../firebase/firebase.config";
 
+const auth = getAuth(app)
 export const AuthContext = createContext()
-
 const AuthProvider = ({ children }) => {
-    const auth = getAuth(app)
+    
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
 
     //signup user
-    const signup = (email, password, name) => {
+    const signup = (email, password) => {
         setLoading(true)
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
+        return createUserWithEmailAndPassword(auth, email, password)
+    }
 
-                const user = userCredential.user;
-                if (user) {
-                    updateProfile(auth.currentUser, {
-                        displayName: name
-                    }).then(() => {
-                        setUser(user)
-                        return { message: "user create successfully", status: 200, user }
-                    }).catch((error) => {
-                        return { message: "something went wrong", status: 400, error }
-                    });
-                }
-            })
-            .catch((error) => {
-                return { message: "something went wrong", status: 400, error }
-            });
+    //update user
+    const updateUser = (name) =>{
+        setLoading(true)
+        return updateProfile(auth.currentUser, {
+            displayName: name
+        })
     }
 
     //signin user
@@ -65,8 +56,12 @@ const AuthProvider = ({ children }) => {
         loading,
         signup,
         signin,
+        updateUser,
         logout
     }
+
+   
+    
     return (
         <AuthContext.Provider value={authInfo}>
             {children}

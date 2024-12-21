@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import "./Nabar.css"
 import logo from "/logo.png"
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
+    const { user,logout } = useAuth()
     return (
         <nav className="nav">
             <ul>
@@ -14,13 +16,26 @@ const Navbar = () => {
                 </li>
             </ul>
             <div className="account">
-                <span className="material-icons-outlined" title="Account">
-                    account_circle
-                </span>
+                {
+                    user ? (
+                        <>
+                            <span className="material-icons-outlined" title="Account">
+                                account_circle
+                            </span>
 
-                <Link to="/signup">Signup</Link>
-                <Link to="/signup">Login</Link>
-                {/* <!-- <span className="material-icons-outlined" title="Logout"> logout </span> --> */}
+                            <p>{user && user.displayName}</p>
+                            <button onClick={logout}>
+                                <span className="material-icons-outlined" title="Logout"> logout </span>
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <Link to="/signup">Signup</Link>
+                            <Link to="/signup">Login</Link>
+                        </>
+                    )
+                }
+
             </div>
         </nav>
     );
