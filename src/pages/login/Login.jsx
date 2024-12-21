@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Login.css"
 import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
@@ -6,7 +6,10 @@ import { useState } from "react";
 const Login = () => {
   const [loading,setLoading] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
 
+  // console.log(location);
+  
   const {signin} = useAuth()
 
   const handleLogin = (e) =>{
@@ -20,7 +23,7 @@ const Login = () => {
       
       const user = userCredential.user;
       if(user){
-        navigate("/")
+        navigate(`${location?.state ? location?.state : "/"}`)
         setLoading(false)
       }
     })

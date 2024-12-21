@@ -5,6 +5,8 @@ import SignUp from "../pages/signup/SignUp";
 import Login from "../pages/login/Login";
 import Quiz from "../pages/quiz/Quiz";
 import Result from "../pages/result/Result";
+import PublicRoute from "./PublicRoute";
+import PrivateRoute from "./PrivateRoute";
 
 
 const router = createBrowserRouter([
@@ -18,19 +20,19 @@ const router = createBrowserRouter([
             },
             {
                 path: "/signup",
-                element: <SignUp />,
+                element: <PublicRoute><SignUp /></PublicRoute>,
             },
             {
                 path: "/login",
-                element: <Login />,
+                element: <PublicRoute><Login /></PublicRoute>,
             },
             {
                 path: "/quiz",
-                element: <Quiz />,
+                element: <PrivateRoute><Quiz /></PrivateRoute>,
             },
             {
                 path: "/quiz/result",
-                element: <Result />,
+                element: <PrivateRoute><Result /></PrivateRoute>,
             },
         ]
     },
